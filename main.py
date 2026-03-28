@@ -26,10 +26,13 @@ def loading_dots(text, dots = 3):
 # Function to run Dijkstra's Algorithm
 def run_dijkstra(start, end):
     result = Dijkstra.Dijkstra(start_node=start, end_node=end)
-    print(f"Time Taken: {result['time_taken_seconds']} seconds")
-    print(f"Total Cost: {result['total_cost']}")
-    print(f"Path: {' -> '.join(result['path_sequence'])}")
-
+    if isinstance(result, str):
+        print(result)
+    else:
+        # If it is a dictionary, print the results safely
+        print(f"Time Taken: {result['time_taken_seconds']} seconds")
+        print(f"Total Cost: {result['total_cost']}")
+        print(f"Path: {' -> '.join(result['path_sequence'])}")
 # Function to run Bellman-Ford's Algorithm
 def run_bellmanford(start, end):
 
@@ -38,14 +41,15 @@ def run_bellmanford(start, end):
 
     # Load the data for the Bellman-Ford Algorithm
     try:
-        bf.load_graph(r"roadNet-PA.txt")
+        bf.load_graph(r"database/roadNet-PA.txt")
     except FileNotFoundError:
         print("Error: File data not found")
 
-    distances, predecessors = bf.find_shortest_paths(int(start))
+    distances, predecessors = bf.find_shortest_paths(int(start), int(end))
     if distances:
+        
+        print(f"Distance to node {int(end)}: {distances.get(int(end), 'Unreachable')}")
         route = bf.get_route(predecessors, int(end))
-        print(f"Distance to node {int(start)}: {distances.get(int(end), 'Unreachable')}")
         print(f"Path: {route}")
 
 def main():

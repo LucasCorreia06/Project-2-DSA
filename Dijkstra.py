@@ -89,7 +89,7 @@ def load_graph_data(filepath):
     return graph
 
 
-def Dijkstra(start_node, end_node, filepath="roadNet-PA.txt"):
+def Dijkstra(start_node, end_node, filepath= r"database/roadNet-PA.txt"):
 
     # 1. Load the graph
     try:
